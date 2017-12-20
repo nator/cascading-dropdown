@@ -346,7 +346,13 @@
 
                 if ( ! isEmpty(props.parent) && ! isEmpty(props.parentUrl)) {
 
-                    $.getJSON(props.parentUrl + '?' + formatQuery(props.selection), function(data) {
+                    var anUrl = props.parentUrl;
+                    var aSplit = '?';
+                    if (anUrl.indexOf('?') > -1)
+                    {
+                        aSplit = '&';
+                    }
+                    $.getJSON(anUrl+ aSplit + formatQuery(props.selection), function(data) {
 
                         if ( ! isDataValid(data)) {
 
@@ -391,9 +397,15 @@
 
                 settings.startCall(trigger, props);
 
+                var anUrl = props.url;
+                var aSplit = '?';
+                if (anUrl.indexOf('?') > -1)
+                {
+                    aSplit = '&';
+                }
                 $.ajax({
                     dataType: "json",
-                    url: props.url + '?' + formatQuery(props.selection),
+                    url: anUrl + aSplit + formatQuery(props.selection),
                     success: function (data) {
 
                         settings.endCall(trigger, props);
